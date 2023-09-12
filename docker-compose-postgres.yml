@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  dict:
+    image: gatomek/gadocker:v3
+    ports:
+      - "8100:8080"
+    env_file:
+      - envs/app.env
+      - envs/postgres.env
+
