@@ -29,7 +29,7 @@ public class GermanDictService implements DictService {
     }
 
     @Transactional( propagation = Propagation.REQUIRES_NEW)
-    public DictEntry save(DictQuery query, String translation, boolean vld) {
+    public DictEntry save(DictQuery query, String translation) {
 
         List<GermanDictEntry> list = repository.findByRequestIs( query.getQuery().trim());
         if( ! list.isEmpty())
@@ -39,7 +39,6 @@ public class GermanDictService implements DictService {
         entry.setRequest( query.getQuery().trim());
         entry.setLang(query.getLang());
         entry.setResponse(translation);
-        entry.setValid( true);
 
         return repository.save( entry);
     }

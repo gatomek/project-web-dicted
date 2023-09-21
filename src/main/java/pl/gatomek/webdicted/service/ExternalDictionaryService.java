@@ -15,6 +15,12 @@ import java.util.Collections;
 public class ExternalDictionaryService {
     private static final String REST_URI = "https://api.pons.com/v1/dictionary";
 
+    private static final String EMPTY_LIST = "[]";
+    private static final String X_SECRET = "X-Secret";
+    private static final String L_PARAM = "l";
+    private static final String Q_PARAM = "q";
+    private static final String PL = "pl";
+
     private final RestTemplate restTemplate;
 
     @Value("${dict.api.secret}")
@@ -24,28 +30,36 @@ public class ExternalDictionaryService {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    private String makeQueryURLFriendly( String query) {
-        query = query.replace( "ä", "ae");
-        query = query.replace( "ö", "oe");
-        query = query.replace( "ü", "ue");
-        query = query.replace( "ß", "ss");
+    private String makeQueryURLFriendly( Language lang, String query) {
+        query = query.toLowerCase();
+
+        if( Language.DE.equals( lang))
+            return makeDeQueryUrlFriendly( query);
+
         return query;
     }
 
+    private String makeDeQueryUrlFriendly(String query) {
+        return query.replace( "ä", "ae")
+                    .replace( "ö", "oe")
+                    .replace( "ü", "ue")
+                    .replace( "ß", "ss");
+    }
+
     public String getTranslation(Language lang, String query) {
-        String langParam = lang.getLabel() + "pl";
+        String langParam = lang.getLabel() + PL;
 
         String urlTemplate = UriComponentsBuilder
                 .fromHttpUrl( REST_URI)
-                .queryParam( "l", langParam)
-                .queryParam("q", makeQueryURLFriendly(query.toLowerCase()))
+                .queryParam(L_PARAM, langParam)
+                .queryParam(Q_PARAM, makeQueryURLFriendly(lang, query))
                 .encode()
                 .toUriString();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)
         );
-        headers.add( "X-Secret", dictApiSecret);
+        headers.add(X_SECRET, dictApiSecret);
         HttpEntity<String> httpEntity = new HttpEntity<>( headers);
 
         try {
@@ -56,11 +70,10 @@ public class ExternalDictionaryService {
             if( code == HttpStatus.OK)
                 return response.getBody();
 
-            return "[]";
+            return EMPTY_LIST;
         }
         catch ( Exception ex) {
-            System.out.println(ex.getMessage());
-            return "[]";
+            return EMPTY_LIST;
         }
     }
 }
