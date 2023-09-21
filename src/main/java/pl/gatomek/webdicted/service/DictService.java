@@ -7,5 +7,5 @@ public interface DictService {
 
     DictEntry find(String query);
 
-    DictEntry save(DictQuery dictQuery, String response, boolean vld);
+    DictEntry save(DictQuery dictQuery, String response);
 }

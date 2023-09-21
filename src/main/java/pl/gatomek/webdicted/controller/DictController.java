@@ -30,19 +30,17 @@ public class DictController {
     }
 
     private DictService selectServiceByLang(Language lang) throws NotSupportedException {
-        switch( lang) {
-        case DE:
+        if( Language.DE.equals( lang))
             return germanDictService;
 
-        case EN:
+        if( Language.EN.equals( lang))
             return englishDictService;
-        }
 
         throw new NotSupportedException();
     }
 
-    private synchronized DictEntry saveEntry( DictService dictService, DictQuery query, String translation, boolean vld) {
-        return dictService.save( query, translation, true);
+    private synchronized DictEntry saveEntry( DictService dictService, DictQuery query, String translation) {
+        return dictService.save( query, translation);
     }
 
     public Translation lookup(DictQuery query) throws NotSupportedException {
@@ -52,7 +50,7 @@ public class DictController {
 
         if( Objects.isNull(dictEntry)) {
             String translation = externalDictService.getTranslation(query.getLang(), query.getQuery());
-            dictEntry = saveEntry( dictService, query, translation, true);
+            dictEntry = saveEntry( dictService, query, translation);
         }
 
         JsonParser parser = JsonParserFactory.getJsonParser();

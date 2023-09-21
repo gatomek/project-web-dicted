@@ -13,23 +13,21 @@ import pl.gatomek.webdicted.dto.Translation;
 @RequestMapping(
         consumes = "application/json",
         produces = "application/json",
-        path = "/rest",
-        method = { RequestMethod.POST}
+        path = "/rest"
 )
 public class DictRestController {
-    private DictController dictController;
+    private final DictController dictController;
+
+    private static final CacheControl cacheControl = CacheControl.noCache().noTransform().mustRevalidate();
 
     public DictRestController(DictController dictController) {
         this.dictController = dictController;
     }
 
-
     @PostMapping( path = "/dict")
     @ResponseBody
     public ResponseEntity<Translation> getTranslation(@RequestBody DictQuery query) throws NotSupportedException {
         query.trim();
-
-        CacheControl cacheControl = CacheControl.noCache().noTransform().mustRevalidate();
 
         Translation translation = dictController.lookup( query);
         return ResponseEntity.ok().cacheControl( cacheControl).body(translation);

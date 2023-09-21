@@ -22,9 +22,7 @@ public class DictEntry {
     @Lob
     private String response;
 
-    @Column(name="VALID")
-    private boolean valid;
-
+    @SuppressWarnings("unused")
     @CreationTimestamp
     @Column(name="DATE_TIME", nullable = false, updatable = false)
     private Instant dateTime;
@@ -45,14 +43,6 @@ public class DictEntry {
         this.lang = lang;
     }
 
-    public Instant getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(Instant dateTime) {
-        this.dateTime = dateTime;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -67,13 +57,5 @@ public class DictEntry {
 
     public void setResponse(String response) {
         this.response = response;
-    }
-
-    public boolean isValid() {
-        return valid;
-    }
-
-    public void setValid(boolean valid) {
-        this.valid = valid;
     }
 }
