@@ -1,0 +1,10 @@
+FROM maven:3.9.4-eclipse-temurin-17-alpine AS MAVEN_BUILD
+COPY src     /home/app/src
+COPY pom.xml /home/app
+RUN apk add --no-cache openssl ncurses-libs libstdc++
+RUN mvn   -f /home/app/pom.xml -DskipTests clean package
+
+FROM eclipse-temurin:17-jdk-alpine
+COPY --from=MAVEN_BUILD /home/app/target/web-dicted-1.0.0.jar /home/app/web-dicted.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/home/app/web-dicted.jar"]

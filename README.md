@@ -17,4 +17,7 @@
 * https://spring.io/guides/topicals/spring-boot-docker/
 * https://www.mend.io/free-developer-tools/blog/docker-expose-port/
 * https://www.baeldung.com/ops/docker-compose-expose-vs-ports
-* 
+
+# Better Dockerfile for Spring Boot application
+* https://github.com/spring-guides/top-spring-boot-docker
+
