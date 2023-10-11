@@ -39,10 +39,6 @@ public class DictController {
         throw new NotSupportedException();
     }
 
-    private synchronized DictEntry saveEntry( DictService dictService, DictQuery query, String translation) {
-        return dictService.save( query, translation);
-    }
-
     public Translation lookup(DictQuery query) throws NotSupportedException {
 
         DictService dictService = selectServiceByLang( query.getLang());
@@ -50,7 +46,7 @@ public class DictController {
 
         if( Objects.isNull(dictEntry)) {
             String translation = externalDictService.getTranslation(query.getLang(), query.getQuery());
-            dictEntry = saveEntry( dictService, query, translation);
+            dictEntry = dictService.save( query, translation);
         }
 
         JsonParser parser = JsonParserFactory.getJsonParser();

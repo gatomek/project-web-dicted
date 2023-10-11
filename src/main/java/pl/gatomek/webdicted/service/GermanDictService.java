@@ -8,6 +8,7 @@ import pl.gatomek.webdicted.entity.DictEntry;
 import pl.gatomek.webdicted.entity.GermanDictEntry;
 import pl.gatomek.webdicted.repository.GermanDictRepository;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -39,6 +40,7 @@ public class GermanDictService implements DictService {
         entry.setRequest( query.getQuery().trim());
         entry.setLang(query.getLang());
         entry.setResponse(translation);
+        entry.setDateTime(Instant.now());
 
         return repository.save( entry);
     }

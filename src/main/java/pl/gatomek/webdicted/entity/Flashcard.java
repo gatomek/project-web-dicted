@@ -3,13 +3,18 @@ package pl.gatomek.webdicted.entity;
 import jakarta.persistence.*;
 
 
-@Table( name="FLASHCARD")
+@Table( schema = "web_flashcards_schema",name="FLASHCARD")
 @Entity
 public class Flashcard {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "flashcard_sequence")
     private Long id;
+
+    @Column( name="LANG", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Language lang;
+
     @Column( name="FRONT", unique = true, nullable = false)
     private String front;
 
