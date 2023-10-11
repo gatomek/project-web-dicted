@@ -1,0 +1,30 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd
+                   http://www.liquibase.org/xml/ns/dbchangelog-ext
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="20231005-120000" author="gatomek">
+        <sql>CREATE SCHEMA IF NOT EXISTS web_dicted_schema;</sql>
+
+        <sql>CREATE SCHEMA IF NOT EXISTS web_flashcards_schema;</sql>
+
+        <sql>CREATE USER web_flashcards with password 'flashcards';</sql>
+
+        <sql>CREATE USER web_dicted with password 'dicted';</sql>
+
+        <sql>GRANT USAGE ON SCHEMA web_flashcards_schema TO web_flashcards;</sql>
+
+        <sql>GRANT USAGE ON SCHEMA web_dicted_schema TO web_dicted;</sql>
+
+        <sql>GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA web_flashcards_schema TO web_flashcards;</sql>
+
+        <sql>GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA web_flashcards_schema TO postgres;</sql>
+
+        <sql>GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA web_dicted_schema TO web_dicted;</sql>
+
+        <sql>GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA web_dicted_schema TO postgres;</sql>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,70 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <changeSet id="20231006-120000" author="gatomek">
+
+        <createSequence sequenceName="english_dict_sequence" minValue="0" incrementBy="50" cacheSize="50"
+         startValue="1" cycle="false"/>
+
+        <createTable tableName="english" schemaName="web_dicted_schema">
+            <column name="id" type="bigint" defaultValueSequenceNext="english_dict_sequence">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="lang" type="varchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="request" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="response" type="clob">
+                <constraints nullable="true" />
+            </column>
+            <column name="date_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createSequence sequenceName="german_dict_sequence" minValue="0" incrementBy="50" cacheSize="50"
+                        startValue="1" cycle="false"/>
+
+        <createTable tableName="german" schemaName="web_dicted_schema">
+            <column name="id" type="bigint" defaultValueSequenceNext="german_dict_sequence">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="lang" type="varchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="request" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="response" type="clob">
+                <constraints nullable="true" />
+            </column>
+            <column name="date_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createSequence sequenceName="flashcard_sequence" minValue="0" incrementBy="50" cacheSize="50"
+                        startValue="0" cycle="false"/>
+
+        <createTable tableName="flashcard" schemaName="web_flashcards_schema">
+            <column name="id" type="bigint" defaultValueSequenceNext="flashcard_sequence">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="PK_FlashcardId"/>
+            </column>
+            <column name="lang" type="varchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="front" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="back" type="clob">
+                <constraints nullable="true" />
+            </column>
+            <column name="ack" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+</databaseChangeLog>
