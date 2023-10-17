@@ -21,10 +21,10 @@
 
         <sql>GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA web_flashcards_schema TO web_flashcards;</sql>
 
-        <sql>GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA web_flashcards_schema TO postgres;</sql>
+        <sql>GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA web_flashcards_schema TO admin;</sql>
 
         <sql>GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA web_dicted_schema TO web_dicted;</sql>
 
-        <sql>GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA web_dicted_schema TO postgres;</sql>
+        <sql>GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA web_dicted_schema TO admin;</sql>
     </changeSet>
 </databaseChangeLog>
