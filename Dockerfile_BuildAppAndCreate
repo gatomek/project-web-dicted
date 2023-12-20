@@ -6,5 +6,7 @@ RUN mvn   -f /home/app/pom.xml -DskipTests clean package
 
 FROM eclipse-temurin:17-jdk-alpine
 COPY --from=MAVEN_BUILD /home/app/target/web-dicted-1.0.0.jar /home/app/web-dicted.jar
+COPY glowroot /home/glowroot
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/home/app/web-dicted.jar"]
+EXPOSE 4000
+ENTRYPOINT ["java", "-javaagent:/home/glowroot/glowroot.jar", "-jar", "/home/app/web-dicted.jar"]
