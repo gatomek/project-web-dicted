@@ -38,3 +38,9 @@ build/
 ### maven
 .mvn
 mvnw*
+
+### glowroot
+glowroot/data
+glowroot/logs
+glowroot/tmp
+jmeter
